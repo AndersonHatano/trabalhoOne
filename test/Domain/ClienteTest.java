@@ -9,18 +9,20 @@ import java.util.List;
 
 class ClienteTest {
 
+    private ContaCorrente contaAnderson;
     private Cliente anderson;
+    private ContaCorrente contaJorge;
     private Cliente jorge;
+    private ContaCorrente contaMaria;
     private Cliente maria;
 
     List<Cliente> clientes = new ArrayList<>();
+    List<ContaCorrente> contaCorrentes = new ArrayList<>();
 
     @Before
     public Cliente criaCliente(){
 
         this.anderson = new Cliente("anderson","28916255", "Rua Tal" );
-
-        System.out.print(this.anderson.getName());
 
         return this.anderson;
     }
@@ -39,6 +41,37 @@ class ClienteTest {
         clientes.add(this.maria);
 
         return clientes;
+    }
+
+    @Before
+    public ContaCorrente criaContaCorrente(){
+
+        this.anderson = new Cliente("anderson","28916255", "Rua Tal" );
+        this.contaAnderson = new ContaCorrente(1l, this.anderson, 100.00);
+
+        return this.contaAnderson;
+
+    }
+
+    @Before
+    public List<ContaCorrente> criaListaContaCorrente(){
+
+        contaCorrentes.add(criaContaCorrente());
+
+        this.jorge = new Cliente("jorge", "112554445", "Rua Embaixador");
+
+        this.contaJorge = new ContaCorrente(2l, this.jorge, 120.00);
+
+        contaCorrentes.add(this.contaJorge);
+
+        this.maria = new Cliente("maria", "855959597", "Rua Embaixador 3");
+
+        this.contaMaria = new ContaCorrente(3l, this.maria, 130.00);
+
+        contaCorrentes.add(this.contaMaria);
+
+        return contaCorrentes;
+
     }
 
     @Test
@@ -121,20 +154,34 @@ class ClienteTest {
     public void removeClienteTeste(){
 
         clientes = criaListaCliente();
+        contaCorrentes = criaListaContaCorrente();
+
+        contaCorrentes = ContaCorrente.removeContaCorrentePorCliente(contaCorrentes,this.anderson);
 
         clientes = Cliente.removeCliente(clientes, this.anderson);
 
         for(int i = 0; i < clientes.size(); i++){
 
-            Assert.assertNotEquals(clientes.get(i), this.anderson);
+            Assert.assertNotEquals(clientes.get(i).getCpf(), this.anderson.getCpf());
         }
 
+        for(int i = 0; i < contaCorrentes.size(); i++) {
+
+            Assert.assertNotEquals(contaCorrentes.get(i), this.contaAnderson);
+        }
+
+        contaCorrentes = ContaCorrente.removeContaCorrentePorCliente(contaCorrentes,this.jorge);
         clientes = Cliente.removeCliente(clientes, this.jorge);
 
         for(int i = 0; i < clientes.size(); i++){
 
-            Assert.assertNotEquals(clientes.get(i), this.anderson);
-            Assert.assertNotEquals(clientes.get(i), this.jorge);
+            Assert.assertNotEquals(clientes.get(i).getCpf(), this.jorge.getCpf());
+
+        }
+
+        for(int i = 0; i < contaCorrentes.size(); i++){
+
+            Assert.assertNotEquals(contaCorrentes.get(i), this.contaJorge);
         }
     }
 }

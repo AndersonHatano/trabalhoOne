@@ -114,6 +114,8 @@ public class Main {
 
                         Cliente clienteRemover = Cliente.buscaClienteCpf(cpf, clientes);
 
+                        contaCorrentes = ContaCorrente.removeContaCorrentePorCliente(contaCorrentes, clienteRemover);
+
                         clientes = Cliente.removeCliente(clientes, clienteRemover);
 
                         System.out.println(textoPadrao);

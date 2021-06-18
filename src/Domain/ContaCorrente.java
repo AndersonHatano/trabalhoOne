@@ -162,4 +162,21 @@ public class ContaCorrente {
         }
         return contaCorrentes;
     }
+
+    public static List<ContaCorrente> removeContaCorrentePorCliente(List<ContaCorrente> contaCorrentes, Cliente cliente){
+
+        for (int i = 0; i < contaCorrentes.size(); i++) {
+
+            ContaCorrente contaCorrenteRemove = contaCorrentes.get(i);
+
+            if (contaCorrenteRemove.getTitular().equals(cliente)) {
+
+                contaCorrentes.remove(contaCorrenteRemove);
+
+                System.out.println("Conta corrente de número " +contaCorrenteRemove.getNumero() +" foi removida com sucesso!");
+            }
+        }
+        return contaCorrentes;
+
+    }
 }

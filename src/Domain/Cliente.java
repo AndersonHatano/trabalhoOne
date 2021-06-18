@@ -95,11 +95,11 @@ public class Cliente {
 
             Cliente clienteRemove = clientes.get(i);
 
-            if(clienteRemove.equals(cliente)){
+            if(clienteRemove.getCpf().equals(cliente.getCpf())){
 
                 clientes.remove(clienteRemove);
 
-                System.out.print("Cliente removido com sucesso!");
+                System.out.println("Cliente removido com sucesso!");
 
                 break;
             }
